@@ -1,11 +1,18 @@
+import React, { Component } from 'react';
 import './App.css';
+import Layout from './components/Layout/Layout';
+import Builder from './containers/Builder/Builder';
 
-function App() {
-  return (
-    <div className="App">
-test
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div>
+          <Layout>
+            <Builder></Builder>
+          </Layout>
+      </div>
+    );
+  }
 }
 
 export default App;
