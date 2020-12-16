@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Aux from '../../hoc/AuxMy';
+import Aux from '../../hoc/AuxMy/AuxMy';
 import Burger from '../../components/Burger/Burger'
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
@@ -35,7 +35,6 @@ class Builder extends Component {
         }). reduce( (sum, el) => {
             return sum + el;
         } , 0);
-        console.log( sum > 0);
         this.setState({purchasable: sum > 0});
     }
 
@@ -79,6 +78,14 @@ class Builder extends Component {
         this.setState({purchasing: true});
     }
 
+    purchaseCancelHandler = () => {
+        this.setState({purchasing: false});
+    }
+
+    purchaseContinueSlHandler = () => {
+        alert('You continue');
+    }
+
     render () {
         const disabledInfo = {
             ...this.state.ingredients
@@ -88,8 +95,12 @@ class Builder extends Component {
         }
         return (
             <Aux>
-                <Modal show={this.state.purchasing}> 
-                    <OrderSummary ingredients={this.state.ingredients} />
+                <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}> 
+                    <OrderSummary 
+                        purchaseCancelled={this.purchaseCancelHandler}
+                        purchaseContinued={this.purchaseContinueSlHandler}
+                        price={this.state.totalPrice}
+                        ingredients={this.state.ingredients} />
                 </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <div>
